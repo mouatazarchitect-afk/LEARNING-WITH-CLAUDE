@@ -1,631 +1,860 @@
-# DEMI PENSION BENAYAD KHLIFA 200 R
+# DEMI PENSION BENAYAD KHLIFA 200 R — Architectural Design README
 
-A design and development starting guide for using **Claude** and **Claude Code** to build a clean, reliable, and practical demi-pension management experience.
+This repository is for using **Claude** and **Claude Code** as an architectural design assistant for the **physical design** of the demi-pension space/building.
 
-This README is written as the project entry point. Put it in the root of the project before opening the folder with Claude Code.
-
----
-
-## 1. Project Purpose
-
-The goal is to design a complete, professional system for managing a **demi-pension / half-board service** for **Benayad Khlifa 200 R**.
-
-The final product should help the team manage daily operations with less confusion, fewer manual mistakes, and a clear view of students, subscriptions, payments, meals, attendance, and reports.
-
-### Main Objectives
-
-- Make registration and subscription management simple.
-- Track students who are subscribed to demi-pension.
-- Track payments, unpaid balances, refunds, and payment history.
-- Manage daily meal attendance or meal access.
-- Provide clear dashboards for administrators and staff.
-- Generate useful reports for accounting, control, and planning.
-- Keep the interface simple enough for non-technical users.
-- Build a design that can later become a real web/mobile application.
+The objective is **not** to build a software system to manage meals, students, payments, or administration. The objective is to help design the **architecture**: spatial organization, zoning, circulation, room program, kitchen/dining layout, safety, comfort, materials, and presentation documents.
 
 ---
 
-## 2. Intended Users
+## 1. Project Mission
 
-Design the system around these users first:
+Design a clear, functional, safe, and beautiful **demi-pension / school dining facility** for **BENAYAD KHLIFA 200 R**.
 
-### 2.1 Administrator
+The design should support:
 
-Responsible for global management.
-
-Needs:
-- Overview dashboard.
-- Student and subscription management.
-- Staff/user management.
-- Reports and exports.
-- Settings and school-year configuration.
-
-### 2.2 Finance / Cashier User
-
-Responsible for payments and financial tracking.
-
-Needs:
-- Add payments quickly.
-- See paid, partially paid, and unpaid students.
-- Print or export receipts.
-- Filter by date, class/group, subscription type, or payment status.
-
-### 2.3 Canteen / Control Staff
-
-Responsible for daily meal access and attendance.
-
-Needs:
-- Fast student search.
-- Simple check-in/check-out or meal validation.
-- Clear status: allowed, not allowed, already served, unpaid, absent, suspended.
-- Minimal clicks during busy hours.
-
-### 2.4 Parent / Student View, Optional Later
-
-Only add this if needed after the internal system is stable.
-
-Possible needs:
-- View subscription status.
-- View payment status.
-- View menu or announcements.
-- Download receipt.
+- Efficient student entry, queuing, serving, eating, and exit.
+- Clean separation between public/student areas and kitchen/service areas.
+- Hygienic food preparation, dishwashing, storage, and waste handling.
+- Comfortable dining conditions: daylight, ventilation, acoustics, durability, and easy cleaning.
+- Safe evacuation and simple supervision by staff.
+- A design that can be explained through plans, diagrams, mood boards, and presentation boards.
 
 ---
 
-## 3. Core Product Scope
+## 2. What Claude Should Help Design
 
-Claude and Claude Code should start with a focused MVP before adding advanced features.
+Claude should act as an **architectural design partner**, helping create and improve:
 
-### MVP Features
+1. **Architectural brief**
+   - Project goals
+   - Users
+   - Capacity
+   - Constraints
+   - Design priorities
 
-1. **Dashboard**
-   - Total subscribed students.
-   - Paid / unpaid / partially paid counts.
-   - Today’s expected meals.
-   - Today’s served meals.
-   - Alerts: unpaid students, missing records, expiring subscriptions.
+2. **Site and context analysis**
+   - Existing site conditions
+   - Access points
+   - Sun, wind, shade, and climate considerations
+   - Existing buildings and circulation
+   - Noise, safety, and service access
 
-2. **Students**
-   - Add/edit student.
-   - Search student by name, ID, class, group, or guardian.
-   - Student profile page.
-   - Student status: active, inactive, suspended, transferred.
+3. **Spatial program**
+   - Required rooms and functions
+   - Approximate area schedule
+   - Capacity calculations
+   - Priority spaces
+   - Expansion possibilities
 
-3. **Subscriptions**
-   - Create demi-pension subscription.
-   - Define period: month, trimester, semester, year, or custom date range.
-   - Track active, expired, cancelled, suspended subscriptions.
-   - Link subscription to payment status.
+4. **Zoning strategy**
+   - Student/public zone
+   - Kitchen/preparation zone
+   - Staff/service zone
+   - Storage zone
+   - Waste/delivery zone
+   - Outdoor waiting or shaded transition areas
 
-4. **Payments**
-   - Record payment.
-   - Support full and partial payments.
-   - Payment receipt reference.
-   - Payment history by student.
-   - Balance due.
-   - Export payment list.
+5. **Circulation design**
+   - Student flow
+   - Staff flow
+   - Delivery flow
+   - Dirty dish return flow
+   - Waste removal flow
+   - Emergency evacuation flow
 
-5. **Daily Meal Attendance / Access Control**
-   - Validate if a student can eat today.
-   - Mark student as served.
-   - Prevent duplicate serving.
-   - Show reason if blocked: unpaid, inactive, already served, subscription expired.
+6. **Concept options**
+   - Option A: compact and efficient
+   - Option B: courtyard/shaded approach
+   - Option C: expandable modular solution
 
-6. **Reports**
-   - Daily attendance report.
-   - Monthly payment report.
-   - Unpaid students report.
-   - Subscribed students report.
-   - Export to CSV/PDF later.
+7. **Preliminary architectural layouts**
+   - Text-based floor plan logic
+   - Room adjacencies
+   - Bubble diagrams
+   - Mermaid diagrams
+   - Simple SVG/block plan diagrams when useful
 
-7. **Settings**
-   - Academic year.
-   - Meal price or subscription price.
-   - Classes/groups.
-   - User roles.
-   - School/service information.
+8. **Design review and improvement**
+   - Identify weak points
+   - Improve circulation
+   - Improve hygiene separation
+   - Improve user comfort
+   - Improve facade and materials
 
----
-
-## 4. Design Principles
-
-The design should be practical, fast, and easy to understand.
-
-### 4.1 Simplicity First
-
-Every screen should answer one question clearly:
-
-- Who is subscribed?
-- Who paid?
-- Who did not pay?
-- Who can eat today?
-- What happened today?
-
-Avoid decorative complexity. This is an operational system, not a marketing website.
-
-### 4.2 Fast Daily Workflow
-
-The canteen/control flow must be extremely fast:
-
-1. Search or scan student.
-2. See status immediately.
-3. Validate meal with one action.
-4. Move to the next student.
-
-### 4.3 Clear Status Colors and Labels
-
-Use consistent labels everywhere:
-
-- **Active**
-- **Expired**
-- **Paid**
-- **Partially Paid**
-- **Unpaid**
-- **Suspended**
-- **Served Today**
-- **Not Served**
-- **Blocked**
-
-Do not use only colors. Always include readable text or icons for accessibility.
-
-### 4.4 Mobile-Friendly, Desktop-Ready
-
-The system should work well on:
-
-- Office desktop/laptop.
-- Tablet at the canteen entrance.
-- Mobile phone for quick checks.
-
-Design mobile-first, then improve for desktop tables and dashboards.
-
-### 4.5 Bilingual-Ready
-
-Prepare the interface so it can support:
-
-- French labels.
-- Arabic labels if needed.
-- English technical naming internally.
-
-Do not hard-code visible labels directly in components if the project becomes multilingual.
+9. **Presentation package**
+   - Concept statement
+   - Design narrative
+   - Room schedule
+   - Diagrams
+   - Image-generation prompts
+   - Final design checklist
 
 ---
 
-## 5. Recommended Information Architecture
+## 3. What Claude Should NOT Do
 
-Suggested main navigation:
+Claude should **not** transform this project into a management software project.
+
+Do **not** focus on:
+
+- Student payment tracking
+- Meal attendance systems
+- Menus and nutrition management
+- Inventory software
+- Parent portals
+- Admin dashboards
+- Databases for student records
+- Canteen accounting
+- Web apps or mobile apps
+
+Claude Code may be used only to organize design files, markdown notes, diagrams, SVG sketches, and presentation content.
+
+---
+
+## 4. Recommended Repository Structure
+
+Create this structure in the project folder:
 
 ```text
-Dashboard
-Students
-Subscriptions
-Payments
-Meal Control
-Reports
-Settings
-```
-
-### Suggested Page Structure
-
-```text
-/dashboard
-/students
-/students/new
-/students/:id
-/subscriptions
-/subscriptions/new
-/payments
-/payments/new
-/meal-control
-/reports
-/settings
+DEMI-PENSION-BENAYAD-KHLIFA-200-R/
+│
+├── README.md
+├── CLAUDE.md
+│
+├── 00_sources/
+│   ├── site_photos/
+│   ├── existing_plans/
+│   ├── measurements/
+│   ├── references/
+│   └── regulations_notes/
+│
+├── 01_brief/
+│   ├── architectural_brief.md
+│   ├── users_and_capacity.md
+│   ├── constraints.md
+│   └── questions_to_confirm.md
+│
+├── 02_site_analysis/
+│   ├── site_summary.md
+│   ├── sun_wind_access.md
+│   ├── existing_circulation.md
+│   └── opportunities_and_risks.md
+│
+├── 03_program/
+│   ├── room_schedule.md
+│   ├── area_calculations.md
+│   ├── adjacency_matrix.md
+│   └── functional_requirements.md
+│
+├── 04_concepts/
+│   ├── concept_A_compact.md
+│   ├── concept_B_courtyard.md
+│   ├── concept_C_modular.md
+│   └── concept_comparison.md
+│
+├── 05_layouts/
+│   ├── zoning_diagrams.md
+│   ├── circulation_diagrams.md
+│   ├── preliminary_plan_notes.md
+│   └── plan_review.md
+│
+├── 06_design_language/
+│   ├── materials.md
+│   ├── facade_ideas.md
+│   ├── interior_atmosphere.md
+│   └── lighting_ventilation_acoustics.md
+│
+├── 07_visual_prompts/
+│   ├── exterior_prompts.md
+│   ├── dining_hall_prompts.md
+│   ├── kitchen_service_prompts.md
+│   └── presentation_board_prompts.md
+│
+├── 08_reviews/
+│   ├── hygiene_review.md
+│   ├── safety_review.md
+│   ├── accessibility_review.md
+│   └── final_architecture_checklist.md
+│
+└── 09_outputs/
+    ├── final_design_narrative.md
+    ├── final_room_schedule.md
+    ├── final_presentation_text.md
+    └── final_board_structure.md
 ```
 
 ---
 
-## 6. Recommended Data Model
+## 5. Essential Source Information to Provide Claude
 
-Claude Code should not blindly implement the database until requirements are confirmed, but this is the starting model.
+Before asking Claude to design, collect as many of these as possible.
 
-### Student
+### 5.1 Site Information
+
+- Site location
+- Existing building dimensions
+- Available land/room dimensions
+- Entrances and exits
+- Nearby classrooms, courtyards, roads, and service access
+- Photos from all sides
+- Existing floor plans, even if hand drawn
+- North direction
+- Sun exposure
+- Wind direction if known
+- Noise sources
+- Drainage or slope issues
+
+### 5.2 Capacity Information
+
+- Number of students served per day
+- Number of students served at the same time
+- Number of meal shifts
+- Age group of students
+- Number of staff
+- Seating style: fixed benches, loose tables, mixed seating, or flexible hall
+- Desired future expansion capacity
+
+### 5.3 Kitchen and Service Information
+
+- Food prepared on site or delivered?
+- Cooking type: full cooking, reheating, serving only, or mixed system
+- Need for cold storage?
+- Need for dry storage?
+- Dishwashing on site?
+- Waste collection point
+- Delivery vehicle access
+- Staff changing area required?
+- Staff toilets required?
+
+### 5.4 Design Preferences
+
+- Modern, traditional, simple, institutional, warm, or playful style
+- Preferred materials
+- Budget level: low, medium, or high
+- Climate response: shade, ventilation, thermal comfort
+- Security and supervision needs
+- Desired image of the school
+
+### 5.5 Regulatory and Technical Information
+
+These must be checked locally by a qualified professional:
+
+- Fire safety rules
+- Kitchen hygiene rules
+- Accessibility requirements
+- Structural requirements
+- Plumbing and drainage requirements
+- Electrical and gas safety rules
+- Ventilation/extraction requirements
+- Local building permit requirements
+
+Claude can help organize and reason about these, but final validation must be done by a licensed architect, engineer, and relevant local authorities.
+
+---
+
+## 6. Core Architectural Design Principles
+
+Use these principles throughout the design process.
+
+### 6.1 Clear Zoning
+
+Separate the building into logical zones:
+
+- **Student zone:** entry, queue, dining, exit, toilets if required.
+- **Food service zone:** serving counter, tray pickup, dish return.
+- **Kitchen zone:** preparation, cooking, plating, washing.
+- **Storage zone:** dry storage, cold storage, cleaning storage.
+- **Service zone:** delivery, waste, staff access, technical spaces.
+
+The student route should be simple and visible. The service route should avoid crossing the student route when possible.
+
+### 6.2 One-Way Student Flow
+
+A good demi-pension plan should avoid congestion.
+
+Preferred flow:
 
 ```text
-id
-student_number
-first_name
-last_name
-date_of_birth
-class_name
-group_name
-guardian_name
-guardian_phone
-status
-created_at
-updated_at
+Entrance → Handwashing / Queue → Tray Pickup → Serving → Dining → Dish Return → Exit
 ```
 
-### Subscription
+Avoid designs where students must go backward, cross dirty dish routes, or pass through kitchen/service areas.
+
+### 6.3 Clean and Dirty Separation
+
+Food preparation and dishwashing/waste should not mix.
+
+Preferred logic:
 
 ```text
-id
-student_id
-subscription_type
-start_date
-end_date
-total_amount
-status
-notes
-created_at
-updated_at
+Delivery → Storage → Preparation → Cooking → Serving → Dining → Dish Return → Dishwashing → Waste
 ```
 
-### Payment
+Clean food movement and dirty dish/waste movement should be separated as much as possible.
 
-```text
-id
-student_id
-subscription_id
-amount_paid
-payment_method
-payment_date
-receipt_number
-created_by
-notes
-created_at
-```
+### 6.4 Supervision and Safety
 
-### MealAttendance
+Staff should be able to supervise:
 
-```text
-id
-student_id
-subscription_id
-meal_date
-meal_type
-status
-validated_by
-validated_at
-notes
-```
+- Entrance and queue
+- Serving line
+- Dining hall
+- Dish return
+- Main exit
 
-### User
+Avoid hidden corners, narrow bottlenecks, and confusing circulation.
 
-```text
-id
-full_name
-email
-role
-status
-created_at
-updated_at
-```
+### 6.5 Climate Comfort
 
-### AuditLog
+For Algerian/local climate conditions, prioritize:
 
-```text
-id
-user_id
-action
-entity_type
-entity_id
-old_value
-new_value
-created_at
+- Shaded waiting area
+- Cross ventilation
+- High ceilings where possible
+- Durable thermal envelope
+- Controlled direct sun
+- Easy-to-clean but comfortable surfaces
+- Natural daylight without glare
+
+### 6.6 Durability and Maintenance
+
+A demi-pension must survive heavy daily use.
+
+Prioritize:
+
+- Washable wall finishes
+- Non-slip flooring
+- Impact-resistant corners
+- Simple plumbing maintenance access
+- Durable tables and benches
+- Easy cleaning below furniture
+- Clear waste management points
+
+---
+
+## 7. Functional Zones and Room Checklist
+
+Claude should consider these spaces when proposing the design.
+
+### Student / Public Areas
+
+- Covered entrance
+- Waiting / queue area
+- Handwashing point
+- Tray pickup
+- Serving line
+- Dining hall
+- Drinking water point
+- Dish return point
+- Student toilets if required
+- Exit route
+- Emergency exits
+- Outdoor shaded overflow area if possible
+
+### Kitchen / Food Preparation Areas
+
+- Food receiving area
+- Dry storage
+- Cold storage
+- Vegetable/meat/prep area depending on kitchen type
+- Cooking area
+- Plating/serving support area
+- Serving counter
+- Dishwashing / plonge
+- Cleaning materials storage
+- Waste holding area
+
+### Staff / Service Areas
+
+- Staff entrance
+- Staff changing room
+- Staff toilet
+- Small office or control point if needed
+- Delivery access
+- Service yard
+- Technical room if required
+
+---
+
+## 8. Adjacency Logic
+
+Use this as a starting point for room relationships.
+
+### Must Be Close
+
+- Kitchen ↔ Serving counter
+- Serving counter ↔ Dining hall
+- Dish return ↔ Dishwashing
+- Delivery ↔ Storage
+- Storage ↔ Preparation
+- Waste ↔ Service exit
+- Handwashing ↔ Student queue / dining entrance
+
+### Should Be Separated
+
+- Waste from dining hall
+- Dishwashing from clean preparation
+- Delivery route from student entrance
+- Staff/private areas from student dining area
+- Toilets from kitchen/food prep areas
+- Noisy service spaces from main dining if possible
+
+### Mermaid Adjacency Diagram
+
+Claude can use Mermaid diagrams like this:
+
+```mermaid
+flowchart LR
+    A[Student Entrance] --> B[Handwashing]
+    B --> C[Queue]
+    C --> D[Serving Counter]
+    D --> E[Dining Hall]
+    E --> F[Dish Return]
+    F --> G[Dishwashing / Plonge]
+    E --> H[Student Exit]
+
+    I[Delivery Access] --> J[Receiving]
+    J --> K[Dry / Cold Storage]
+    K --> L[Preparation]
+    L --> M[Cooking]
+    M --> D
+    G --> N[Waste Holding]
+    N --> O[Service Exit]
 ```
 
 ---
 
-## 7. Design System Direction
+## 9. Claude Design Workflow
 
-### Visual Style
+Follow this workflow. Do not jump directly to a final design.
 
-Use a clean administrative design:
+### Phase 1 — Understand the Sources
 
-- Light background.
-- Clear cards.
-- Large readable tables.
-- Strong search and filter controls.
-- Clear empty states.
-- Minimal decoration.
-- Professional school/service feeling.
+Claude should first read all available sources and create:
 
-### Suggested UI Components
+- `01_brief/questions_to_confirm.md`
+- `01_brief/constraints.md`
+- `02_site_analysis/site_summary.md`
 
-- App shell / sidebar.
-- Top bar with current academic year and user menu.
-- Dashboard stat cards.
-- Data tables with filters.
-- Student profile card.
-- Status badges.
-- Payment summary card.
-- Meal validation panel.
-- Confirmation dialogs.
-- Toast notifications.
-- Export buttons.
-- Empty states.
-- Error states.
+Claude should clearly separate:
 
-### Accessibility Rules
+- Known facts
+- Assumptions
+- Missing information
+- Design risks
 
-- Text must be readable on mobile and desktop.
-- Do not rely on color alone.
-- Buttons must have clear labels.
-- Tables should have clear column names.
-- Forms should show validation messages.
-- Important actions should ask for confirmation.
+### Phase 2 — Create the Architectural Brief
 
----
+Claude should create:
 
-## 8. Suggested Technical Direction
+- Project vision
+- Users
+- Capacity assumptions
+- Functional requirements
+- Design priorities
+- Technical constraints
 
-Use this only if the project does not already have a defined stack.
-
-### Recommended Stack
-
-- **Frontend:** Next.js + TypeScript
-- **Styling:** Tailwind CSS
-- **UI Components:** shadcn/ui or a similar accessible component system
-- **Database:** PostgreSQL
-- **Backend:** Next.js API routes, NestJS, Laravel, or another clear backend framework
-- **Authentication:** Role-based access control
-- **Exports:** CSV first, PDF later
-
-### Important
-
-If an existing stack already exists in the source files, Claude Code must follow the existing stack instead of replacing it.
-
----
-
-## 9. Claude / Claude Code Workflow
-
-Claude Code is useful because it can inspect the project, edit files, run commands, and work inside the terminal or IDE. Use it as a careful assistant, not as an uncontrolled automatic generator.
-
-### Step 1 — Source Discovery
-
-Ask Claude Code:
+Output file:
 
 ```text
-Read the entire project structure. Summarize what files exist, what the current stack is, what is missing, and what decisions we need before designing the demi-pension system. Do not edit files yet.
+01_brief/architectural_brief.md
 ```
 
-Claude Code should identify:
+### Phase 3 — Build the Spatial Program
 
-- Existing framework.
-- Existing routes/pages.
-- Existing components.
-- Existing assets.
-- Existing design style.
-- Missing requirements.
-- Possible risks.
+Claude should produce:
 
-### Step 2 — Product Requirements
+- Room list
+- Approximate area range
+- Functional notes
+- Priority level
+- Required adjacency
 
-Ask:
+Output files:
 
 ```text
-Using README.md as the source of truth, create a clear product requirements document for the demi-pension system. Separate MVP features from later features. Ask only the most important unresolved questions.
+03_program/room_schedule.md
+03_program/area_calculations.md
+03_program/adjacency_matrix.md
 ```
 
-### Step 3 — Design Map
+### Phase 4 — Propose 3 Concept Options
 
-Ask:
+Claude should create three different architectural concepts:
+
+1. **Compact efficient plan**
+2. **Courtyard / shaded transition plan**
+3. **Modular expandable plan**
+
+Each concept should include:
+
+- Main idea
+- Strengths
+- Weaknesses
+- Best use case
+- Zoning logic
+- Circulation logic
+- Possible facade/material direction
+
+Output files:
 
 ```text
-Create the full app information architecture, user flows, and screen list for the demi-pension system. Focus on the fastest workflow for student registration, payment tracking, and daily meal validation.
+04_concepts/concept_A_compact.md
+04_concepts/concept_B_courtyard.md
+04_concepts/concept_C_modular.md
+04_concepts/concept_comparison.md
 ```
 
-### Step 4 — Wireframe Before Code
+### Phase 5 — Develop the Best Concept
 
-Ask:
+After comparing concepts, Claude should develop the strongest option into:
+
+- Zoning diagram
+- Circulation diagram
+- Preliminary plan description
+- Room adjacency explanation
+- Design narrative
+
+Output files:
 
 ```text
-Create low-fidelity wireframes in text for each MVP screen before writing code. For every screen, describe the layout, main actions, table columns, empty states, and error states.
+05_layouts/zoning_diagrams.md
+05_layouts/circulation_diagrams.md
+05_layouts/preliminary_plan_notes.md
 ```
 
-### Step 5 — Component Plan
+### Phase 6 — Review the Architecture
 
-Ask:
+Claude should review the design against:
+
+- Hygiene
+- Fire safety logic
+- Accessibility
+- Student supervision
+- Kitchen functionality
+- Maintenance
+- Comfort
+- Expansion
+
+Output files:
 
 ```text
-Create a reusable component plan for this app. Include layout components, cards, tables, forms, status badges, dialogs, and meal validation components. Do not code yet.
+08_reviews/hygiene_review.md
+08_reviews/safety_review.md
+08_reviews/accessibility_review.md
+08_reviews/final_architecture_checklist.md
 ```
 
-### Step 6 — Implement Incrementally
+### Phase 7 — Prepare Visual and Presentation Materials
 
-Build one part at a time:
+Claude should generate:
 
-1. App shell and navigation.
-2. Dashboard layout.
-3. Students list and student profile.
-4. Subscription screens.
-5. Payment screens.
-6. Meal control screen.
-7. Reports.
-8. Settings.
+- Exterior image prompts
+- Interior dining hall prompts
+- Kitchen/service prompts
+- Presentation board structure
+- Final design narrative
 
-Do not ask Claude Code to build everything in one huge step.
-
-### Step 7 — Review and Refine
-
-After each implementation step, ask:
+Output files:
 
 ```text
-Review the changes for usability, consistency, accessibility, bugs, and missing edge cases. Suggest improvements before we continue.
-```
-
----
-
-## 10. Claude Code Guardrails
-
-Claude Code must follow these rules:
-
-1. Do not delete existing source files unless explicitly asked.
-2. Do not replace the existing tech stack without explaining why.
-3. Do not make database migrations without a clear schema plan.
-4. Do not hard-code fake business rules as final logic.
-5. Do not expose private data, secrets, API keys, or credentials.
-6. Do not create huge files when smaller reusable components are better.
-7. Do not ignore mobile layout.
-8. Do not use vague labels like “Item” or “Data”; use real product language.
-9. Always keep user roles in mind.
-10. Always explain what changed after editing files.
-
----
-
-## 11. First Claude Code Command Prompt
-
-Use this as the first prompt after opening the project folder:
-
-```text
-You are helping design and build the DEMI PENSION BENAYAD KHLIFA 200 R system.
-
-First, read README.md and inspect the project structure. Do not edit files yet.
-
-Return:
-1. Current project stack and structure.
-2. Existing files that matter for the design.
-3. Missing files or missing requirements.
-4. Recommended first design plan.
-5. Risks or unclear decisions.
-6. A step-by-step implementation plan for the MVP.
-
-Important rules:
-- Follow the existing stack if one exists.
-- Keep the UI simple, fast, and operational.
-- Prioritize students, subscriptions, payments, and daily meal control.
-- Do not make destructive changes.
+07_visual_prompts/exterior_prompts.md
+07_visual_prompts/dining_hall_prompts.md
+07_visual_prompts/kitchen_service_prompts.md
+09_outputs/final_design_narrative.md
+09_outputs/final_board_structure.md
 ```
 
 ---
 
-## 12. Suggested `CLAUDE.md` Content
+## 10. Suggested CLAUDE.md Instructions
 
-Create a `CLAUDE.md` file later with this content so Claude Code always remembers the project rules:
+Create a `CLAUDE.md` file in the project root with the following content:
 
 ```markdown
-# Claude Instructions for DEMI PENSION BENAYAD KHLIFA 200 R
+# Claude Instructions — Demi Pension Architectural Design
 
-This project is a demi-pension / half-board management system.
+You are helping design the physical architecture of a demi-pension / school dining facility for BENAYAD KHLIFA 200 R.
 
-Priorities:
-1. Simple operational UI.
-2. Fast student search and daily meal validation.
-3. Clear payment/subscription status.
-4. Mobile-friendly and desktop-ready layout.
-5. Reusable components.
-6. Safe, incremental changes.
+You are not designing a software management system.
 
-Never:
-- Delete files without permission.
-- Replace the stack without justification.
-- Hide important payment or subscription status.
-- Rely on color only for statuses.
-- Build huge all-in-one components.
+Your role is to act as an architectural design assistant. Help with architectural brief, site analysis, spatial program, zoning, circulation, preliminary layouts, room adjacencies, hygiene/safety review, materials, facade ideas, and presentation content.
 
-Always:
-- Read README.md first.
-- Summarize the plan before editing.
-- Make small changes.
-- Explain what changed.
-- Check edge cases.
+Always distinguish between:
+
+- Known facts from provided sources
+- Assumptions
+- Missing information
+- Design recommendations
+- Items that require validation by a licensed architect, engineer, or local authority
+
+Do not invent exact dimensions unless the user provides measurements. When dimensions are missing, propose ranges and clearly label them as assumptions.
+
+Prioritize:
+
+1. Student safety
+2. Hygiene and clean/dirty separation
+3. Clear one-way circulation
+4. Durable and easy-to-maintain materials
+5. Climate comfort: shade, ventilation, daylight
+6. Efficient kitchen and service workflow
+7. Simple supervision by staff
+8. Future expansion if possible
+
+Do not focus on meal management, payment systems, student databases, dashboards, or software features.
+
+When creating design documents, save them in the appropriate folders:
+
+- `01_brief/`
+- `02_site_analysis/`
+- `03_program/`
+- `04_concepts/`
+- `05_layouts/`
+- `06_design_language/`
+- `07_visual_prompts/`
+- `08_reviews/`
+- `09_outputs/`
+
+Use clear Markdown tables, Mermaid diagrams, checklists, and concise architectural explanations.
 ```
 
 ---
 
-## 13. Design Acceptance Checklist
+## 11. First Prompt to Give Claude / Claude Code
 
-Before accepting the design, verify:
-
-### Dashboard
-
-- [ ] Shows important totals clearly.
-- [ ] Shows payment and subscription alerts.
-- [ ] Shows today’s meal status.
-
-### Students
-
-- [ ] Search is fast and obvious.
-- [ ] Student profile is complete.
-- [ ] Status is clear.
-
-### Subscriptions
-
-- [ ] Start/end dates are clear.
-- [ ] Expired subscriptions are obvious.
-- [ ] Subscription status matches payment situation.
-
-### Payments
-
-- [ ] Partial payments are supported.
-- [ ] Balance due is clear.
-- [ ] Receipt/reference is visible.
-- [ ] Payment history is easy to understand.
-
-### Meal Control
-
-- [ ] Staff can validate a student quickly.
-- [ ] Duplicate meals are blocked.
-- [ ] Block reasons are clear.
-- [ ] Works well on tablet/mobile.
-
-### Reports
-
-- [ ] Daily report exists.
-- [ ] Monthly payment report exists.
-- [ ] Unpaid students report exists.
-- [ ] Export is planned or implemented.
-
-### General UI
-
-- [ ] Mobile-friendly.
-- [ ] Clear labels.
-- [ ] Accessible status indicators.
-- [ ] No confusing navigation.
-- [ ] No unnecessary decoration.
-
----
-
-## 14. Later Features
-
-Add these only after the MVP is stable:
-
-- QR code or barcode student cards.
-- Parent/student portal.
-- SMS or WhatsApp payment reminders.
-- PDF receipt generation.
-- Menu planning.
-- Stock/ingredient management.
-- Multi-school support.
-- Advanced accounting exports.
-- Offline mode for meal control.
-- Biometric or card-based access control, if legally and practically appropriate.
-
----
-
-## 15. Important Open Questions
-
-These should be answered before final implementation:
-
-1. What does “200 R” specifically represent in this project?
-2. Is the system for one school/service only or multiple locations?
-3. What languages must the final UI support?
-4. What is the exact subscription pricing model?
-5. Are payments monthly, trimester-based, yearly, or flexible?
-6. Are partial payments allowed?
-7. Does each student have a unique ID/card number?
-8. Will meal validation use manual search, QR code, barcode, or card scan?
-9. Who can edit or delete payments?
-10. What reports are legally or administratively required?
-
----
-
-## 16. Recommended Next Step
-
-Start with design, not code.
-
-The correct first milestone is:
+Use this prompt after placing sources in the `00_sources/` folder:
 
 ```text
-A complete MVP screen map + wireframes + data model + component plan.
+You are helping me design the physical architecture of a demi-pension / school dining facility for BENAYAD KHLIFA 200 R.
+
+Important: This is not a software project. Do not design a management app, meal tracking system, student database, payment system, or admin dashboard.
+
+Your job is to help me design the architecture: spatial program, zoning, circulation, kitchen/dining layout, hygiene separation, safety, comfort, materials, facade ideas, and presentation documents.
+
+Please start by reviewing the available project sources in `00_sources/`. Then create the following files:
+
+1. `01_brief/questions_to_confirm.md`
+2. `01_brief/constraints.md`
+3. `01_brief/architectural_brief.md`
+4. `02_site_analysis/site_summary.md`
+5. `03_program/initial_room_schedule.md`
+
+In every file, separate:
+
+- Known facts
+- Assumptions
+- Missing information
+- Design risks
+- Recommendations
+
+Do not invent final dimensions. If dimensions are missing, propose reasonable area ranges and clearly mark them as assumptions.
+
+The design must prioritize student safety, hygiene, clean/dirty separation, one-way circulation, shaded waiting, ventilation, durability, and easy supervision.
 ```
 
-Only after that should Claude Code begin implementing files.
+---
+
+## 12. Prompt for Creating Concept Options
+
+After the brief and room schedule are created, use:
+
+```text
+Based on the architectural brief, site analysis, and room schedule, propose 3 architectural concept options for the demi-pension:
+
+A. Compact efficient layout
+B. Courtyard / shaded transition layout
+C. Modular expandable layout
+
+For each option, provide:
+
+- Concept idea
+- Zoning logic
+- Student circulation
+- Staff/service circulation
+- Kitchen workflow
+- Hygiene strategy
+- Strengths
+- Weaknesses
+- Best use case
+- Approximate spatial organization
+- Mermaid bubble diagram
+
+Save the results in:
+
+- `04_concepts/concept_A_compact.md`
+- `04_concepts/concept_B_courtyard.md`
+- `04_concepts/concept_C_modular.md`
+- `04_concepts/concept_comparison.md`
+```
+
+---
+
+## 13. Prompt for Reviewing a Layout
+
+Use this whenever a plan or sketch is produced:
+
+```text
+Review this demi-pension architectural layout as an architect.
+
+Evaluate it for:
+
+1. Student entrance and exit flow
+2. Queue and serving efficiency
+3. Dining hall comfort
+4. Clean/dirty separation
+5. Kitchen workflow
+6. Dish return and dishwashing logic
+7. Delivery and waste route
+8. Emergency evacuation logic
+9. Accessibility
+10. Staff supervision
+11. Ventilation and daylight
+12. Durability and maintenance
+13. Possible future expansion
+
+Give a clear critique with:
+
+- What works well
+- What is risky or weak
+- What should be changed
+- Priority improvements
+- Suggested revised zoning
+
+Do not discuss software management features.
+```
+
+---
+
+## 14. Prompt for Image / Visualization Generation
+
+Use this when creating prompts for exterior or interior visuals:
+
+```text
+Create image-generation prompts for the architectural design of a school demi-pension for BENAYAD KHLIFA 200 R.
+
+The design should feel durable, clean, welcoming, and appropriate for a school dining facility. It should include shaded waiting areas, natural ventilation, simple modern materials, easy supervision, and a clear student entrance.
+
+Create prompts for:
+
+1. Exterior view from student entrance
+2. Dining hall interior
+3. Serving counter and queue area
+4. Courtyard or shaded outdoor transition area
+5. Presentation board hero image
+
+For each prompt include:
+
+- Architectural style
+- Materials
+- Lighting
+- Climate response
+- People/use scenario
+- Camera angle
+- Mood
+
+Avoid luxury restaurant design. This must look like a practical, safe, durable school facility.
+```
+
+---
+
+## 15. Architecture Review Checklist
+
+Before accepting any design option, check the following.
+
+### Function
+
+- [ ] Students can enter, queue, eat, return dishes, and exit without confusion.
+- [ ] The serving line does not block the entrance.
+- [ ] Dish return does not cross the food-serving line.
+- [ ] Kitchen has logical receiving, storage, preparation, cooking, serving, and washing flow.
+- [ ] Waste route is separated from student dining as much as possible.
+
+### Safety
+
+- [ ] Emergency exits are clear.
+- [ ] Circulation paths are not too narrow for peak use.
+- [ ] Queuing does not create dangerous crowding.
+- [ ] Staff can supervise key areas.
+- [ ] Wet zones use non-slip flooring.
+
+### Hygiene
+
+- [ ] Clean and dirty flows are separated.
+- [ ] Handwashing is near student entry/serving.
+- [ ] Toilets are separated from food preparation.
+- [ ] Waste is not stored near dining or clean food prep.
+- [ ] Dishwashing is close to dish return but separated from clean preparation.
+
+### Comfort
+
+- [ ] Dining hall has daylight.
+- [ ] Dining hall has ventilation.
+- [ ] Waiting/queue area has shade.
+- [ ] Noise and echo are considered.
+- [ ] Heat gain is reduced through shade, orientation, or ventilation.
+
+### Durability
+
+- [ ] Materials are easy to clean.
+- [ ] Floors are non-slip and durable.
+- [ ] Walls can resist impact and washing.
+- [ ] Furniture layout supports cleaning.
+- [ ] Service areas are accessible for maintenance.
+
+### Design Quality
+
+- [ ] The building has a clear entrance identity.
+- [ ] The design feels appropriate for a school.
+- [ ] The facade is simple, durable, and welcoming.
+- [ ] The plan can adapt to future growth if needed.
+- [ ] The concept is easy to explain in a presentation.
+
+---
+
+## 16. Final Expected Deliverables
+
+The final design process should produce:
+
+- Architectural brief
+- Site analysis summary
+- Room schedule
+- Area assumptions
+- Adjacency matrix
+- 3 concept options
+- Concept comparison
+- Selected concept narrative
+- Zoning diagram
+- Circulation diagram
+- Preliminary floor plan explanation
+- Material and facade direction
+- Hygiene review
+- Safety review
+- Accessibility review
+- Visualization prompts
+- Final presentation board structure
+
+---
+
+## 17. Professional Validation Note
+
+Claude can help reason, organize, critique, and generate architectural design documents. However, the final design must be reviewed and approved by qualified professionals, including the architect, structural engineer, MEP engineer, fire safety authority, hygiene/food safety authority, and local permitting authorities.
+
+Do not treat AI output as final construction documentation.
+
+---
+
+## 18. Design Direction Summary
+
+The best demi-pension architecture should be:
+
+- Simple to understand
+- Safe for students
+- Efficient during peak meal time
+- Hygienic and easy to clean
+- Comfortable in local climate
+- Durable under heavy use
+- Easy for staff to supervise
+- Clear in its separation between students, food preparation, service, and waste
+- Presentable as a strong school facility design
+
+The goal is not only to create a building that works, but also a space that feels organized, clean, welcoming, and respectful for students.
